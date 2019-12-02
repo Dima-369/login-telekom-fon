@@ -1,6 +1,8 @@
 import sys
 import time
 
+from pync import Notifier
+
 import urllib
 import urllib.request
 import urllib.error
@@ -35,20 +37,31 @@ def get_login_page_url_from_redirect():
     return response.headers.get('Location')
 
 
+Notifier.notify(
+    'Starting login process...',
+    title='Telekom Hotspot')
+
 hotspot_login_page = get_login_page_url_from_redirect()
 
 if hotspot_login_page == 'https://www.apple.com/':
-    print('Already logged in!')
+    Notifier.notify(
+        'Already have an internet connection!',
+        title='Telekom Hotspot')
+    time.sleep(1.5)
+    Notifier.remove()
     sys.exit(0)
 
+print('The hotspot login page is: ')
 print(hotspot_login_page)
 
-email = 'hey@gmail.com'
-pw = 'heyho'
+email = 'change@me.com'
+pw = 'changeme'
 
 d = webdriver.Chrome()
-d.implicitly_wait(15)
+d.implicitly_wait(10)
 d.get(hotspot_login_page)
+
+time.sleep(2)
 
 d.find_element_by_xpath('//*[@id="tab-container"]/div[1]/div/div/a[4]').click()
 d.find_element_by_xpath(
@@ -57,9 +70,20 @@ d.find_element_by_xpath(
 d.find_element_by_xpath(
     '//*[@id="tab-tab-login-hotspot"]/div[1]/div/form/div[1]/div[2]/input') \
     .send_keys(pw)
+
+# clicking the 'Eingeloggt bleiben' checkbox which does not seem to work but
+# we try anyway!
+d.find_element_by_xpath(
+    '//*[@id="tab-tab-login-hotspot"]/'
+    'div[1]/div/form/div[2]/div/div[1]/label').click()
+
+# clicking the 'Online gehen' button
 d.find_element_by_xpath(
     '//*[@id="tab-tab-login-hotspot"]/div[1]/div/form/button').click()
 
-time.sleep(3)
+Notifier.notify('Logged in!', title='Telekom Hotspot')
+
+time.sleep(1.5)
+Notifier.remove()
 
 d.quit()

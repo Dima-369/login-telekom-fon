@@ -1,5 +1,8 @@
 # login-telekom-fon
+
 Login into Telekom_FON hotspots by Python and Selenium
+
+Change the `email` and `pw` variable to your credentials!
 
 # Call from Hammerspoon
 

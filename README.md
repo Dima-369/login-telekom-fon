@@ -2,7 +2,7 @@
 
 Login into Telekom_FON hotspots by Python and Selenium
 
-Change the `email` and `pw` variable to your credentials!
+Change the `email` and `pw` variables to your credentials!
 
 # Call from Hammerspoon
 

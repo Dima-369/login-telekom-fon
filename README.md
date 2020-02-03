@@ -11,7 +11,7 @@ hs.hotkey.bind(hyper, "c", function()
   hs.execute('python3 ~/login-telekom-fon/main.py', true)
 end)
 ```
-### More manual Hammerspoon script which is more reliable
+### Manual Hammerspoon script which is more reliable
 
 On macOS, a hotspot login window pops up on which you manually have to click the `Login` tab and use the script below.
 
